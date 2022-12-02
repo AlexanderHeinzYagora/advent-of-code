@@ -8,3 +8,4 @@ cs = day01.apply(lambda x: x.groupby((np.isnan(x)).cumsum()).cumsum())
 np.max(cs) # solution part 1 
 
 sum(heapq.nlargest(3, cs["numbers"])) # solution part 2
+
