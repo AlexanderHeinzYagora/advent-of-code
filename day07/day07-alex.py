@@ -1,7 +1,6 @@
 import re
 from mergedeep import merge
 
-
 with open("day07-alex.txt") as f:
     day07 = f.readlines()
 
@@ -11,6 +10,7 @@ def has_numbers(string):
     """ function to check if string has numbers """
     return any(i.isdigit() for i in string)
 
+#### Description of the approach --------------------------
 # first we want to reconstruct the folder tree and map the sizes to the files or the subfolders to the folders
 # so we go through each line, and create a folder path if the line starts with "cd"
 # and we add a subfolder to the path if the cd is not a ".." (or we shorten the path if it is "..")
@@ -21,6 +21,7 @@ def has_numbers(string):
 # (not sure if this step could be simplified or if I could avoid the for loop here)
 # finally, we merge the current final_tree dictionary with that path.
 # this way, we get the folder structure by merging many dictionarys which all lead to files with file sizes
+###########################################################
 path = []
 final_tree = {}
 for line in day07:
@@ -41,7 +42,7 @@ for line in day07:
 
         final_tree = merge(final_tree, folder_tree)
 
-final_tree # the final 
+final_tree 
 
 # finally, we want to get the sum of all sub-directory file sizes
 # so we can create a recursive sum of all nested dictionary values
@@ -73,16 +74,12 @@ for x in get_all_keys(final_tree):
 
 print("Solution Part 1:", final_sum) # solution part 1
 
-
 #### PART 2: ------------------------------------------------
 
 # we can also use the recursive sum function to get the total size of the final tree
 total_size = recursive_sum(final_tree)
-
-
 total_space = 70000000
 target_space = 30000000
-
 unused_space = total_space-total_size
 to_be_deleted = target_space-unused_space
 
@@ -90,9 +87,9 @@ to_be_deleted = target_space-unused_space
 # then get the smallest
 space_dict = {}
 for x in get_all_keys(final_tree):
-    free_space = x[1]
-    if free_space > to_be_deleted:
-        space_dict[free_space] = x[0]
+    space_deletion = x[1]
+    if space_deletion > to_be_deleted:
+        space_dict[space_deletion] = x[0]
 
 minimum_value = min(space_dict.keys())
 
